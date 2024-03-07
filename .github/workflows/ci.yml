@@ -61,12 +61,13 @@ jobs:
 
   message:
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     needs: test
 
     steps:
       - name: Send a message
         uses: zulip/github-actions-zulip/send-message@v1
-        if: failure()
+        if: ${{ failure() }}
         with:
           api-key: ${{ secrets.ZULIP_API_KEY }}
           email: "wrf-python-ci-bot@zulip2.cloud.ucar.edu"
