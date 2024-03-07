@@ -59,9 +59,14 @@ jobs:
           cd test/ci_tests
           python utests.py
 
+  message:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
       - name: Send a message
         uses: zulip/github-actions-zulip/send-message@v1
-        if: always()
+        if: failure()
         with:
           api-key: ${{ secrets.ZULIP_API_KEY }}
           email: "wrf-python-ci-bot@zulip2.cloud.ucar.edu"
