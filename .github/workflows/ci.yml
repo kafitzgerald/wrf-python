@@ -51,7 +51,7 @@ jobs:
       - name: Build WRF-Python
         run: |
           cd build_scripts
-          ./gnu_omp.sh
+          ./gnu_omp1.sh
           cd ..
 
       - name: Run tests
