@@ -42,6 +42,7 @@ dynamic = [ "version" ]
 dependencies = [
     "basemap",
     "numpy >=1.11, !=1.24.3",
+    "packaging",
     "setuptools>=61",
     "wrapt",
     "xarray"
