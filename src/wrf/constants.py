@@ -4,6 +4,8 @@ from sys import version_info
 import struct
 import numpy as np
 
+from packaging.version import Version
+
 from .py3compat import viewitems
 from ._wrffortran import wrf_constants, omp_constants
 
@@ -46,23 +48,41 @@ class ProjectionTypes(object):
     MERCATOR = 3
     LAT_LON = 6
 
+np_version = Version(np.__version__)
 
-# Create the default fill mapping based on type.
-_DEFAULT_FILL_MAP = {None: Constants.DEFAULT_FILL,
-                     np.dtype(np.bool_): False,
-                     np.dtype(np.intc): Constants.DEFAULT_FILL_INT32,
-                     np.dtype(np.int8): Constants.DEFAULT_FILL_INT8,
-                     np.dtype(np.uint8): 255,
-                     np.dtype(np.int16): Constants.DEFAULT_FILL_INT16,
-                     np.dtype(np.uint16): 65535,
-                     np.dtype(np.int32): Constants.DEFAULT_FILL_INT32,
-                     np.dtype(np.uint32): 4294967295,
-                     np.dtype(np.int64): Constants.DEFAULT_FILL_INT64,
-                     np.dtype(np.uint64): 18446744073709551614,
-                     np.dtype(np.float_): Constants.DEFAULT_FILL_DOUBLE,
-                     np.dtype(np.float32): Constants.DEFAULT_FILL_FLOAT,
-                     np.dtype(np.float64): Constants.DEFAULT_FILL_DOUBLE
-                     }
+if np_version < Version('2.0'):
+    # Create the default fill mapping based on type.
+    _DEFAULT_FILL_MAP = {None: Constants.DEFAULT_FILL,
+                        np.dtype(np.bool_): False,
+                        np.dtype(np.intc): Constants.DEFAULT_FILL_INT32,
+                        np.dtype(np.int8): Constants.DEFAULT_FILL_INT8,
+                        np.dtype(np.uint8): 255,
+                        np.dtype(np.int16): Constants.DEFAULT_FILL_INT16,
+                        np.dtype(np.uint16): 65535,
+                        np.dtype(np.int32): Constants.DEFAULT_FILL_INT32,
+                        np.dtype(np.uint32): 4294967295,
+                        np.dtype(np.int64): Constants.DEFAULT_FILL_INT64,
+                        np.dtype(np.uint64): 18446744073709551614,
+                        np.dtype(np.float_): Constants.DEFAULT_FILL_DOUBLE,
+                        np.dtype(np.float32): Constants.DEFAULT_FILL_FLOAT,
+                        np.dtype(np.float64): Constants.DEFAULT_FILL_DOUBLE
+                        }
+else:
+    # Create the default fill mapping based on type.
+    _DEFAULT_FILL_MAP = {None: Constants.DEFAULT_FILL,
+                        np.dtype(np.bool_): False,
+                        np.dtype(np.intc): Constants.DEFAULT_FILL_INT32,
+                        np.dtype(np.int8): Constants.DEFAULT_FILL_INT8,
+                        np.dtype(np.uint8): 255,
+                        np.dtype(np.int16): Constants.DEFAULT_FILL_INT16,
+                        np.dtype(np.uint16): 65535,
+                        np.dtype(np.int32): Constants.DEFAULT_FILL_INT32,
+                        np.dtype(np.uint32): 4294967295,
+                        np.dtype(np.int64): Constants.DEFAULT_FILL_INT64,
+                        np.dtype(np.uint64): 18446744073709551614,
+                        np.dtype(np.float32): Constants.DEFAULT_FILL_FLOAT,
+                        np.dtype(np.float64): Constants.DEFAULT_FILL_DOUBLE
+                        }
 
 if version_info >= (3, ):
     _DEFAULT_FILL_MAP[np.int_] = Constants.DEFAULT_FILL_INT64
