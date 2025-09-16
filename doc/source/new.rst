@@ -4,6 +4,14 @@ What's New
 Releases
 -------------
 
+v1.4.1 (September 2025)
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Release 1.4.1
+- Support for Python 3.13
+- Remove pkg_resources
+- Several minor docs updates
+
 v1.4.0 (May 2025)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
