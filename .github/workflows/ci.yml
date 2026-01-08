@@ -44,7 +44,7 @@ jobs:
           cd test/ci_tests
           python utests.py
       - name: check import
-        if: failure()
+        if: failure() && runner.os != 'Windows'
         run: |
           python -m pip show wrf-python
           python -m pip show --files wrf-python
@@ -56,3 +56,9 @@ jobs:
           file ${installed_files}
           python -vvv -dd -c "import wrf"
           ldd $(echo ${installed_files} | grep -F -v -e ".py" -e ".dist-info")
+      - name: check import (Windows)
+        if: failure() && runner.os == 'Windows'
+        run: |
+          python -m pip show wrf-python
+          python -m pip show --files wrf-python
+          python -vvv -dd -c "import wrf"
