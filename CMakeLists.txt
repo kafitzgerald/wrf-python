@@ -74,7 +74,8 @@ else()
   add_custom_command(
     OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/fortran/omp.f90"
     DEPENDS "${CMAKE_SOURCE_DIR}/fortran/ompgen.F90"
-    COMMAND ${CMAKE_Fortran_COMPILER} -E fortran/ompgen.F90 -o fortran/omp.f90 -cpp
+    COMMAND ${CMAKE_Fortran_COMPILER} -E "${CMAKE_SOURCE_DIR}/fortran/ompgen.F90"
+      -o "${CMAKE_CURRENT_BINARY_DIR}/fortran/omp.f90" -cpp
     )
 endif()
 
